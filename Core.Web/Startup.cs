@@ -13,14 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Core.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Rotativa.AspNetCore;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Server.IISIntegration;
+
 using Core.Web.Data.Repository;
+using Core.Web.Models.Security;
+using Core.Web.Services;
 
 namespace Core.Web
 {
@@ -37,25 +33,46 @@ namespace Core.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+
+            services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("DocumentManagementConnection"));
+                options.EnableSensitiveDataLogging();
+            });
+
+            services.AddIdentity<Usuario, Rol>()
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddDefaultTokenProviders();
+
             services.Configure<IISOptions>(options =>
             {
                 options.ForwardClientCertificate = true;
-               // options.AutomaticAuthentication = true;
+                options.AutomaticAuthentication = true;
             });
 
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    // Password settings.
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireLowercase = true;
-            //    options.Password.RequireNonAlphanumeric = true;
-            //    options.Password.RequireUppercase = true;
-            //    options.Password.RequiredLength = 6;
-            //    options.Password.RequiredUniqueChars = 1;
 
-            //    // User settings.
-            //    options.User.RequireUniqueEmail = true;
-            //});
+
+
+
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = true;
+                options.AutomaticAuthentication = true;
+            });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // User settings.
+                options.User.RequireUniqueEmail = true;
+            });
 
 
             services.ConfigureApplicationCookie(options =>
@@ -65,10 +82,26 @@ namespace Core.Web
                 options.ExpireTimeSpan = TimeSpan.FromDays(20);
 
                 options.LoginPath = "/";
-                options.AccessDeniedPath = "/Home/SinPermiso";
+                options.AccessDeniedPath = "/inicio/SinPermiso";
                 options.SlidingExpiration = true;
             });
 
+
+
+
+
+            services.AddScoped<IUserClaimsPrincipalFactory<Usuario>, ClaimsPrincipalFactory>();
+            //services.AddTransient<IWorkflowKernel, DefaultWorkflowKernel>();
+            //services.AddTransient<IWorkflowService, WorkflowService>();
+            //services.AddTransient<INotificationKernel, MailSender>();
+            //services.AddTransient<ISolicitudRepository, SolicitudesRepository>();
+            //services.AddScoped<IClaimsTransformation, CustomClaimsTransformer>();
+
+            /*Workers & background tasks*/
+            //services.AddHostedService<CargaInicialWorker>();
+            //services.AddHostedService<CargaDatosCreditoService>();
+            //services.AddHostedService<GeneraArchivoIronMountain>();
+            //services.AddHostedService<CierrePagaresDeIronMountainWorker>();
 
 
             services.AddTransient<ISolicitudRepository, SolicitudesRepository>();
@@ -97,7 +130,7 @@ namespace Core.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-           //app.UseAuthentication();
+            app.UseAuthentication();
 
 
             app.UseMvc(routes =>

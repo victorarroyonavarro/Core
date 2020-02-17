@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Inicio\**" />
+    <Content Remove="Views\Inicio\**" />
+    <EmbeddedResource Remove="Views\Inicio\**" />
+    <None Remove="Views\Inicio\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="wwwroot\Rotativa\InicioController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="dapper" Version="1.60.9" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="BuildBundlerMinifier" Version="2.8.391" />
@@ -16,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Inicio\" />
+    <None Include="Views\Inicio\Login.cshtml" />
+    <None Include="Views\Inicio\SinPermiso.cshtml" />
   </ItemGroup>
 </Project>
