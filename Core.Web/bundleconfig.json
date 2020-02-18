@@ -1,39 +1,38 @@
 [
 
-    {
-        "outputFileName": "wwwroot/js/main.min.js",
-      "inputFiles": [
-        "wwwroot/lib/js/jquery.min.js",
-        "wwwroot/lib/js/bootstrap.js",
-        "wwwroot/lib/js/nifty.js",
-        "wwwroot/lib/js/pace.min.js",
-        "wwwroot/lib/js/bootstrap-table.min.js",
-        "wwwroot/js/extensiones.js",
-        "wwwroot/js/configuracion.js"
-      ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": true,
-            "outputMode": "singleLine"
-        },
-        "sourceMap": true
+  {
+    "outputFileName": "wwwroot/js/main.min.js",
+    "inputFiles": [
+      "wwwroot/lib/js/jquery.min.js",
+      "wwwroot/lib/js/bootstrap.js",
+      "wwwroot/lib/js/nifty.js",
+      "wwwroot/lib/js/pace.min.js",
+      "wwwroot/lib/js/bootstrap-table.min.js",
+      "wwwroot/js/extensiones.js",
+      "wwwroot/js/configuracion.js"
+
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true,
+      "outputMode": "singleLine"
     },
-    {
-        "outputFileName": "wwwroot/css/main.min.css",
-        "inputFiles": [
-            "wwwroot/lib/css/bootstrap.css",
-            "wwwroot/lib/css/nifty.css",
-            "wwwroot/lib/css/pace.min.css",
-            "wwwroot/lib/css/demo/nifty-demo-icons.css",
-            "wwwroot/lib/css/bootstrap-table.min.css"
-        ],
-        "minify": {
-            "enabled": true,
-            "renameLocals": false,
-            "outputMode": "singleLine"
-        },
-        "sourceMap": false
-
-    }
-
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/css/main.min.css",
+    "inputFiles": [
+      "wwwroot/lib/css/bootstrap.css",
+      "wwwroot/lib/css/nifty.css",
+      "wwwroot/lib/css/pace.min.css",
+      "wwwroot/lib/css/demo/nifty-demo-icons.css",
+      "wwwroot/lib/css/bootstrap-table.min.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false,
+      "outputMode": "singleLine"
+    },
+    "sourceMap": false
+  }
 ]

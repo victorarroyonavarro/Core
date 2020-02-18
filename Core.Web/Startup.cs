@@ -10,15 +10,17 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Core.Web.Data;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
-using Core.Web.Data.Repository;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Core.Web.Data;
 using Core.Web.Models.Security;
-using Core.Web.Services;
 
-namespace Core.Web
+namespace Galvarino.Web
 {
     public class Startup
     {
@@ -33,8 +35,6 @@ namespace Core.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-
-
             services.AddDbContext<ApplicationDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("DocumentManagementConnection"));
                 options.EnableSensitiveDataLogging();
@@ -43,16 +43,6 @@ namespace Core.Web
             services.AddIdentity<Usuario, Rol>()
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddDefaultTokenProviders();
-
-            services.Configure<IISOptions>(options =>
-            {
-                options.ForwardClientCertificate = true;
-                options.AutomaticAuthentication = true;
-            });
-
-
-
-
 
             services.Configure<IISOptions>(options =>
             {
@@ -82,20 +72,16 @@ namespace Core.Web
                 options.ExpireTimeSpan = TimeSpan.FromDays(20);
 
                 options.LoginPath = "/";
-                options.AccessDeniedPath = "/inicio/SinPermiso";
+                options.AccessDeniedPath = "/Home/SinPermiso";
                 options.SlidingExpiration = true;
             });
-
-
-
-
 
             services.AddScoped<IUserClaimsPrincipalFactory<Usuario>, ClaimsPrincipalFactory>();
             //services.AddTransient<IWorkflowKernel, DefaultWorkflowKernel>();
             //services.AddTransient<IWorkflowService, WorkflowService>();
             //services.AddTransient<INotificationKernel, MailSender>();
             //services.AddTransient<ISolicitudRepository, SolicitudesRepository>();
-            //services.AddScoped<IClaimsTransformation, CustomClaimsTransformer>();
+            services.AddScoped<IClaimsTransformation, CustomClaimsTransformer>();
 
             /*Workers & background tasks*/
             //services.AddHostedService<CargaInicialWorker>();
@@ -104,7 +90,7 @@ namespace Core.Web
             //services.AddHostedService<CierrePagaresDeIronMountainWorker>();
 
 
-            services.AddTransient<ISolicitudRepository, SolicitudesRepository>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(ConfigureJson);
         }
@@ -139,7 +125,7 @@ namespace Core.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           // RotativaConfiguration.Setup(env);
+            RotativaConfiguration.Setup(env);
         }
     }
 }

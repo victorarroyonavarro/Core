@@ -32,14 +32,22 @@ namespace Core.Web.Data
 
             builder.HasDefaultSchema(_conf.GetValue<string>("schema"));
 
-            /*Identity*/
+            base.OnModelCreating(builder);
 
+            builder.HasDefaultSchema(_conf.GetValue<string>("schema"));
+
+            /*Identity*/
             builder.Entity<Usuario>().ToTable("Usuarios");
             builder.Entity<Rol>().ToTable("Roles");
-            builder.Entity<IdentityUserRole<string>>().ToTable("PerfilesUsuario");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("NotificacionesUsuarios");
+            builder.Entity<IdentityUserRole<string>>().ToTable("RolesUsuarios");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("AccesosUsuarios");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("NotificacionesRoles");
+            builder.Entity<IdentityUserToken<string>>().ToTable("TokensUsuarios");
 
+            /*Configurar Modelos*/
+            
 
-            /* Configurar Modelos */
 
 
 

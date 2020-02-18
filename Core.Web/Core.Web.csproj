@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Inicio\**" />
-    <Content Remove="Views\Inicio\**" />
-    <EmbeddedResource Remove="Views\Inicio\**" />
-    <None Remove="Views\Inicio\**" />
+    <Compile Remove="Data\NewFolder\**" />
+    <Content Remove="Data\NewFolder\**" />
+    <EmbeddedResource Remove="Data\NewFolder\**" />
+    <None Remove="Data\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="wwwroot\Rotativa\InicioController.cs" />
+    <Compile Remove="Services\Application\CargaDatosCreditoService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +24,5 @@
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.6.362" />
     <PackageReference Include="SSH.NET" Version="2016.1.0" />
     <PackageReference Include="TinyCsvParser" Version="2.5.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Inicio\Login.cshtml" />
-    <None Include="Views\Inicio\SinPermiso.cshtml" />
   </ItemGroup>
 </Project>
