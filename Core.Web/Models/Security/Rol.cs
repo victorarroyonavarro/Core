@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace Core.Web.Models.Security
 {
     public class Rol : IdentityRole
     {
 
-        //public string id { get; set; }
-        //public string Nombre { get; set; }
-        //public string NombreNormalizado { get; set; }
-        //public string Estado { get; set; }
-
+        public Organizacion Orzanizacion { get; set; }
+        public Rol Padre { get; set; }
+        public ICollection<Rol> Hijos { get; set; }
+        public bool Activo { get; set; }
     }
 }

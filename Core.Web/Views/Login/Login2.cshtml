@@ -23,7 +23,7 @@
     <link href="~/lib/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/css/main.min.css" rel="stylesheet">
     <link href="~/lib/css/bootstrap-datepicker.min.css" rel="stylesheet">
-    <link href="~/lib/css/bootstrapValidator.min.css" rel="stylesheet" />
+    @*<link href="~/lib/css/StyleSheet.css" rel="stylesheet" />*@
 
 
 </head>
@@ -48,7 +48,7 @@
                         <img src="" alt="Galvarino Logo" style="max-width:300px;">
                         <p>Login de Usuarios</p>
                     </div>
-                    <form id="form-usuario-generico">
+                    <form name="form-usuario-generico">
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
@@ -79,31 +79,59 @@
 
 
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.4/es6-shim.min.js"></script>
     <script src="~/js/main.min.js"></script>
     <script src="~/lib/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/lib/js/bootstrapValidator.min.js"></script>
+    <script src="~/lib/js/jquery.validate.min.js"></script>
     <script>
         $(function () {
-       
-            var cargador = {
-                LoginUsuario: function (usuario) {
-                    debugger;
+
+
+            $("form[name='form-usuario-generico']").validate({
+                rules: {
+
+                    password: "required",
+
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 5
+                    }
+                },
+
+                messages: {
+                    password: {
+                        required: "Debe ingresar contraseña!!!",
+                        minlength: "Debe ingresar contreasña de 5 caractéres mínimo!!"
+                    },
+                    email: "Debe ingresar un correo válido!!!"
+                },
+
+                submitHandler: function (form) {
+                    event.preventDefault();
+                    let model = {
+                        email: $('#email').val(),
+                        passwordHash: $("#password").val()
+                    }
+
+                    console.log({ model });
+
                     $.ajax({
                         type: "POST",
                         url: `/api/auth/ingreso-usuario`,
-                        data: JSON.stringify(usuario),
+                        data: JSON.stringify(model),
                         contentType: "application/json; charset=utf-8"
                     }).done(function (data) {
-
+                        debugger;
                         location.href = "/configuraciones/usuarios"
 
-                        }).fail(function (errMsg) {
-                            $('#form-usuario-generico')[0].reset();
-                            $("#form-usuario-generico").bootstrapValidator('resetForm', true);
-                            $('#form-usuario-generico').data('bootstrapValidator').destroy();
+                    }).fail(function (errMsg) {
+                        debugger;
                         $.niftyNoty({
+
                             type: "warning",
                             container: "floating",
                             title: "Acceso no válido",
@@ -112,54 +140,41 @@
                             timer: 5000
                         });
                     });
-
                 }
-
-            }
-
-
-            $('#form-usuario-generico').bootstrapValidator({
-
-                feedbackIcons: {
-                    valid: 'fa fa-check-circle fa-lg text-success',
-                    invalid: 'fa fa-times-circle fa-lg',
-                    validating: 'fa fa-refresh'
-                },
-                fields: {
-                    email: {
-                        message: 'Tipo Campaña Invalida',
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe seleccionar un tipo de campaña.'
-                            }
-                        }
-                    },
-                    password: {
-                        //excluded: false,
-                        message: 'Ejecutivo Origen Invalido',
-                        validators: {
-                            notEmpty: {
-                                message: 'Debe ingresar contraseña!!'
-                            }
-                        }
-                    }
-                }
-            }).on('success.form.bv', function (e) {
-                e.preventDefault();
-                var $form = $(e.target);
-                var  usuario = {
-                    email: $('#email').val(),
-                    passwordHash: $("#password").val()
-                }
-                debugger;
-                cargador.LoginUsuario(usuario);
             });
 
+            $('#registration').on('submit', function (e) {
 
-            $('#form-usuario-generico').on('submit', function (e) {
+                debugger;
 
-                $('#form-usuario-generico').bootstrapValidator('validate');
 
+
+                let model = {
+                    email: $('#Identificacion').val(),
+                    passwordHash: $("#Llave").val()
+                }
+
+                console.log({ model });
+
+                $.ajax({
+                    type: "POST",
+                    url: `/api/auth/ingreso-usuario`,
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8"
+                }).done(function (data) {
+
+                    location.href = "/configuraciones/usuarios"
+
+                }).fail(function (errMsg) {
+                    $.niftyNoty({
+                        type: "warning",
+                        container: "floating",
+                        title: "Acceso no válido",
+                        message: "correo o contraseña no son válidos!!!<br/><small>Este mensaje se cierra en 5 segundos.</small>",
+                        closeBtn: true,
+                        timer: 5000
+                    });
+                });
             });
         });
     </script>

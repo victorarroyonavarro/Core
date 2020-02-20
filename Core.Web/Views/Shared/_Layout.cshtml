@@ -40,8 +40,8 @@
                 <!--Brand logo & name-->
                 <!--================================-->
                 <div class="navbar-header">
-                    <a href="/wf/v1/mis-solicitudes" class="navbar-brand">
-                        <img src="~/images/logo.png" alt="Galvarino Logo" class="brand-icon">
+                    <a href="" class="navbar-brand">
+                        <img src="" alt="Galvarino Logo" class="brand-icon">
                         <div class="brand-title">
                             <span class="brand-text" style="font-family: 'Satisfy', cursive; font-size: 30px;">Galvarino</span>
                         </div>
@@ -322,11 +322,11 @@
                                     <li>
                                         <a href="#">
                                             <i class="demo-pli-file"></i>
-                                            <span class="menu-title">Nóminas Generadas</span>
+                                            <span class="menu-title">Menu 1</span>
                                             <i class="arrow"></i>
                                         </a>
                                         <ul class="collapse">
-                                            @if (User.IsInRole("Encargado Expedientes") || User.IsInRole("Mantenedor de Sistema"))
+                                            @*@if (User.IsInRole("Encargado Expedientes") || User.IsInRole("Mantenedor de Sistema"))
                                             {
                                                 <li><a href="/wf/v1/notas-internas/generadas/nomina-notaria">Nóminas a Notaría</a></li>
                                                 <li><a href="/wf/v1/notas-internas/generadas/valija-oficina">Nómina a Of. de Legalización</a></li>
@@ -338,7 +338,7 @@
                                             {
 
                                                 <li><a href="/wf/v1/notas-internas/generadas/caja-valorada">Cajas Valoradas a Custodia</a></li>
-                                            }
+                                            }*@
 
 
                                         </ul>
@@ -347,11 +347,11 @@
                                     <li>
                                         <a href="#">
                                             <i class="demo-pli-file"></i>
-                                            <span class="menu-title">Nóminas Set Compl.</span>
+                                            <span class="menu-title">menu 2</span>
                                             <i class="arrow"></i>
                                         </a>
                                         <ul class="collapse">
-                                            @if (User.IsInRole("Encargado Expedientes") || User.IsInRole("Mantenedor de Sistema"))
+                                            @*@if (User.IsInRole("Encargado Expedientes") || User.IsInRole("Mantenedor de Sistema"))
                                             {
                                                 <li><a href="/wf/v1/notas-internas-sc/generadas/valija-valorada">Nóminas a Of. de Partes</a></li>
                                             }
@@ -361,7 +361,7 @@
                                             {
                                                 <li><a href="/wf/v1/notas-internas-sc/generadas/valija-oficina-documento-of-Pago">Cajas Valoradas Doc. Of. de Pago</a></li>
                                                 <li><a href="/wf/v1/notas-internas-sc/generadas/caja-valorada-custodia">Cajas Valoradas a Custodia</a></li>
-                                            }
+                                            }*@
 
                                         </ul>
                                     </li>

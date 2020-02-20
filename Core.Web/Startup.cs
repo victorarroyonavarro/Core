@@ -53,12 +53,12 @@ namespace Galvarino.Web
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+               // options.Password.RequiredUniqueChars = 1;
 
                 // User settings.
                 options.User.RequireUniqueEmail = true;
@@ -72,7 +72,7 @@ namespace Galvarino.Web
                 options.ExpireTimeSpan = TimeSpan.FromDays(20);
 
                 options.LoginPath = "/";
-                options.AccessDeniedPath = "/Home/SinPermiso";
+                options.AccessDeniedPath = "/login/login";
                 options.SlidingExpiration = true;
             });
 

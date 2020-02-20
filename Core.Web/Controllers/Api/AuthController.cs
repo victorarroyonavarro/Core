@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Web.Data;
+﻿using Core.Web.Data;
 using Core.Web.Models.Security;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace Core.Web.Controllers.Api
 {
@@ -36,11 +33,41 @@ namespace Core.Web.Controllers.Api
             _context = context;
         }
 
-        public IActionResult loginusuario()
+        [HttpPost]
+        [Route("ingreso-usuario")]
+        public async  Task<IActionResult> IngresoUsuario([FromBody] Usuario usuario)
         {
 
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                
+                    var user = await _signInManager.UserManager.FindByEmailAsync(usuario.Email);
+
+                    var result = await _signInManager.PasswordSignInAsync("1-9", "Victor.2020", isPersistent: true, lockoutOnFailure: false);
+
+                    //if (result.Succeeded)
+                    //{
+                    await _signInManager.SignInAsync(user, true);
+
+                    return Ok();
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError(string.Empty, "Datos de Acceso Invalidos.");
+                    //    return BadRequest(ModelState);
+                    //}
+
+               
+
+
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+
         }
     }
 }

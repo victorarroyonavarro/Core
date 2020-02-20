@@ -33,5 +33,26 @@ namespace Core.Web.Controllers
             ViewBag.usuariosList = _context.Users.ToList();
             return View();
         }
+
+
+        [Route("formulario/{id?}")]
+        public async Task<IActionResult> Formulario(string id = "")
+        {
+
+            ViewBag.editando = !String.IsNullOrEmpty(id);
+            
+            if (ViewBag.editando)
+            {
+                var user = await _context.Users.FindAsync(id);
+                ViewBag.rolUsuario = await _userManager.GetRolesAsync(user);
+                ViewBag.usuario = user;
+            }
+
+            return View();
+        }
+
+
+
+
     }
 }

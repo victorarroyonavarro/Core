@@ -4,12 +4,13 @@
     "outputFileName": "wwwroot/js/main.min.js",
     "inputFiles": [
       "wwwroot/lib/js/jquery.min.js",
-      "wwwroot/lib/js/bootstrap.js",
+      "wwwroot/lib/js/bootstrap.min.js",
       "wwwroot/lib/js/nifty.js",
       "wwwroot/lib/js/pace.min.js",
       "wwwroot/lib/js/bootstrap-table.min.js",
       "wwwroot/js/extensiones.js",
       "wwwroot/js/configuracion.js"
+
 
     ],
     "minify": {
@@ -22,7 +23,7 @@
   {
     "outputFileName": "wwwroot/css/main.min.css",
     "inputFiles": [
-      "wwwroot/lib/css/bootstrap.css",
+      "wwwroot/lib/css/bootstrap.min.css",
       "wwwroot/lib/css/nifty.css",
       "wwwroot/lib/css/pace.min.css",
       "wwwroot/lib/css/demo/nifty-demo-icons.css",
